@@ -28,6 +28,8 @@ jobs:
           command: |
               git config --global user.email "${USER_EMAIL}"
               git config --global user.name "${USER_NAME}"
+              git tag -d AUTO-COMMIT
+              git push --delete origin AUTO-COMMIT
               # If it's not a tagged build, increment the version number
               CURRENT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
               NEXT_VERSION=$(echo "${CURRENT_VERSION}" | awk -F'.' '{print $1"."$2"."$3 + 1}')
