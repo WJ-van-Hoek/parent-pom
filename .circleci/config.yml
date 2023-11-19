@@ -24,14 +24,14 @@ jobs:
       - checkout
 
       - run:
-        name: Check if AUTO-COMMIT tag exists
-        command: |
-          if git tag --list "AUTO-COMMIT" >/dev/null 2>&1; then
-            echo "Tag AUTO-COMMIT already exists. Skipping deployment."
-            exit 0
-          else
-            echo "Proceeding with deployment."
-          fi
+          name: Check if AUTO-COMMIT tag exists
+          command: |
+            if git tag --list "AUTO-COMMIT" >/dev/null 2>&1; then
+              echo "Tag AUTO-COMMIT already exists. Skipping deployment."
+              exit 0
+            else
+              echo "Proceeding with deployment."
+            fi
 
       - run:
           name: Increment Version and Deploy
