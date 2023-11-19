@@ -24,6 +24,16 @@ jobs:
       - checkout
 
       - run:
+        name: Check if AUTO-COMMIT tag exists
+        command: |
+          if git tag --list "AUTO-COMMIT" >/dev/null 2>&1; then
+            echo "Tag AUTO-COMMIT already exists. Skipping deployment."
+            exit 0
+          else
+            echo "Proceeding with deployment."
+          fi
+
+      - run:
           name: Increment Version and Deploy
           command: |
               git config --global user.email "${USER_EMAIL}"
@@ -44,10 +54,11 @@ jobs:
 workflows:
   version: 2
   build:
-    when:
-        - equal: [ /^(?!AUTO-COMMIT).*$/, << pipeline.git.tag >> ]
     jobs:
       - build:
+          filters:
+            tags:
+              only: /^(?!AUTO-COMMIT).*$/
 
       - deploy:
           requires:
@@ -56,4 +67,7 @@ workflows:
             branches:
               only:
                 - master
+            tags:
+              only: /^(?!AUTO-COMMIT).*$/
+
 
