@@ -1,0 +1,59 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: maven:3.8.4-openjdk-17
+
+    working_directory: /parent-pom
+
+    steps:
+      - checkout
+
+      - run:
+          name: Clean and Package
+          command: mvn clean package
+
+  deploy:
+    docker:
+      - image: maven:3.8.4-openjdk-17
+
+    working_directory: /parent-pom
+
+    steps:
+      - checkout
+
+      - run:
+          name: Increment Version and Deploy
+          command: |
+              git config --global user.email "${USER_EMAIL}"
+              git config --global user.name "${USER_NAME}"
+              # If it's not a tagged build, increment the version number
+              CURRENT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+              NEXT_VERSION=$(echo "${CURRENT_VERSION}" | awk -F'.' '{print $1"."$2"."$3 + 1}')
+              mvn versions:set -DnewVersion="${NEXT_VERSION}"
+              git commit -am "Bump version to ${NEXT_VERSION}"
+              git tag -a "AUTO-COMMIT" -m "Bump version to ${NEXT_VERSION}"
+              git push origin "AUTO-COMMIT"
+            
+              # Deploy to Maven repository
+              mvn deploy --settings ./.circleci/settings.xml
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build:
+          filters:
+            tags:
+              only: /^(?!AUTO-COMMIT).*$/
+
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
+
+
