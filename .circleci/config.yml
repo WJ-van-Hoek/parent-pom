@@ -33,8 +33,8 @@ jobs:
               NEXT_VERSION=$(echo "${CURRENT_VERSION}" | awk -F'.' '{print $1"."$2"."$3 + 1}')
               mvn versions:set -DnewVersion="${NEXT_VERSION}"
               git commit -am "Bump version to ${NEXT_VERSION}"
-              git tag -a "AUTO-COMMIT" -m "Bump version to ${NEXT_VERSION}"
-              git push origin "AUTO-COMMIT"
+              git tag -a "AUTO-COMMIT" -m "Bump version to ${NEXT_VERSION}" HEAD
+              git push origin master --tags
             
               # Deploy to Maven repository
               mvn deploy --settings ./.circleci/settings.xml
