@@ -34,10 +34,7 @@ jobs:
               git commit -am "Bump version to ${NEXT_VERSION}"
               git tag -a "AUTO-COMMIT" -m "Bump version to ${NEXT_VERSION}"              
               git push origin master --tags
-              git checkout -b "RELEASE-${NEXT_VERSION}"
-              git push origin "RELEASE-${NEXT_VERSION}" --set-upstream
               mvn deploy --settings ./.circleci/settings.xml
-              git push -d origin "RELEASE-${NEXT_VERSION}"
 
 workflows:
   version: 2
@@ -47,11 +44,9 @@ workflows:
           filters:
             branches:
               only:
-                - /^(?!RELEASE).*$/
-            tags:
-              only: /^(?!AUTO-COMMIT).*$/                
+                - /^(?!RELEASE|MASTER).*$/
 
-  deploy:
+  release:
     jobs:
       - package-maven:
           filters:
@@ -59,11 +54,7 @@ workflows:
               only:
                 - master
             tags:
-              only: /^(?!AUTO-COMMIT).*$/                     
+              only: /^(?!AUTO-COMMIT).*$/
       - deploy-maven:
           requires:
             - package-maven
-          filters:
-            branches:
-              only:
-                - /^.*RELEASE.*$/  # Match branches that contain "RELEASE"
