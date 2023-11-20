@@ -46,7 +46,7 @@ workflows:
           filters:
             branches:
               ignore:
-                - /^(RELEASE|MASTER).*$/
+                - master
 
   release:
     jobs:
@@ -56,7 +56,7 @@ workflows:
               only:
                 - master
             tags:
-              only: /^(?!AUTO-COMMIT).*$/
+              ignore: /^(AUTO-COMMIT).*$/
       - deploy-maven:
           requires:
             - package-maven
