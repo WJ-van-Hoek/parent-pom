@@ -32,7 +32,8 @@ jobs:
               NEXT_VERSION=$(echo "${CURRENT_VERSION}" | awk -F'.' '{print $1"."$2"."$3 + 1}')
               mvn versions:set -DnewVersion="${NEXT_VERSION}"
               git commit -am "Bump version to ${NEXT_VERSION}"
-              git push origin master
+              git tag -a "AUTO-COMMIT" -m "Bump version to ${NEXT_VERSION}"              
+              git push origin master --tags
               git checkout -b "RELEASE-${NEXT_VERSION}"
               git push origin "RELEASE-${NEXT_VERSION}" --set-upstream
               mvn deploy --settings ./.circleci/settings.xml
@@ -47,6 +48,8 @@ workflows:
             branches:
               only:
                 - /^(?!RELEASE).*$/
+            tags:
+              only: /^(?!AUTO-COMMIT).*$/                
 
   deploy:
     jobs:
@@ -54,7 +57,9 @@ workflows:
           filters:
             branches:
               only:
-                - /^.*RELEASE.*$/  # Match branches that contain "RELEASE"
+                - master
+            tags:
+              only: /^(?!AUTO-COMMIT).*$/                     
       - deploy-maven:
           requires:
             - package-maven
