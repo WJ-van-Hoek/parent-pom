@@ -48,11 +48,15 @@ workflows:
 
   deploy:
     jobs:
-      - package-maven
+      - package-maven:
+          filters:
+            branches:
+              only:
+                - /RELEASE-.*/
       - deploy-maven:
           requires:
             - package-maven
           filters:
             branches:
               only:
-                - master
+                - /RELEASE-.*/
