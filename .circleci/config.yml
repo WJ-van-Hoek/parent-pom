@@ -51,6 +51,14 @@ jobs:
               # Deploy to Maven repository
               mvn deploy --settings ./.circleci/settings.xml
 
+      - run:
+          name: Debug Tag
+          command: |
+            echo "Current Tags:"
+            git tag --list
+            echo "Filtered Tags:"
+            git tag --list | grep -v -E '^AUTO-COMMIT.*$'
+
 workflows:
   version: 2
   build:
@@ -58,7 +66,7 @@ workflows:
       - build:
           filters:
             tags:
-              ignore: /^AUTO-COMMIT*$/
+              ignore: /^AUTO-COMMIT.*$/
 
       - deploy:
           requires:
@@ -68,6 +76,4 @@ workflows:
               only:
                 - master
             tags:
-              ignore: /^AUTO-COMMIT*$/
-
-
+              ignore: /^AUTO-COMMIT.*$/
