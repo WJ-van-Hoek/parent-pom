@@ -28,8 +28,17 @@ jobs:
           command: |
               git config --global user.email "${USER_EMAIL}"
               git config --global user.name "${USER_NAME}"
-              git tag -d "AUTO-COMMIT"
-              git push origin --delete "AUTO-COMMIT"             
+              TAG_NAME="AUTO-COMMIT"
+              # Check if the tag exists locally
+              if git rev-parse -q --verify "refs/tags/$TAG_NAME" > /dev/null; then
+              # Delete the local tag
+              git tag -d "$TAG_NAME"
+              fi
+              # Check if the tag exists on the remote
+              if git ls-remote --tags origin "$TAG_NAME" | grep -q "$TAG_NAME"; then
+              # Delete the remote tag
+              git push origin --delete "$TAG_NAME"
+              fi        
               CURRENT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
               NEXT_VERSION=$(echo "${CURRENT_VERSION}" | awk -F'.' '{print $1"."$2"."$3 + 1}')
               mvn versions:set -DnewVersion="${NEXT_VERSION}"
