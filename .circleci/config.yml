@@ -58,7 +58,7 @@ workflows:
       - build:
           filters:
             tags:
-              only: /^(?!AUTO-COMMIT).*$/
+              ignore: /^AUTO-COMMIT.*$/
 
       - deploy:
           requires:
@@ -68,6 +68,6 @@ workflows:
               only:
                 - master
             tags:
-              only: /^(?!AUTO-COMMIT).*$/
+              ignore: /^AUTO-COMMIT.*$/
 
 
