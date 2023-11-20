@@ -30,10 +30,11 @@ jobs:
               git config --global user.name "${USER_NAME}"
               CURRENT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
               NEXT_VERSION=$(echo "${CURRENT_VERSION}" | awk -F'.' '{print $1"."$2"."$3 + 1}')
-              git checkout -b "RELEASE-${NEXT_VERSION}"
               mvn versions:set -DnewVersion="${NEXT_VERSION}"
               git commit -am "Bump version to ${NEXT_VERSION}"
-              git push origin "RELEASE-${NEXT_VERSION}"
+              git push origin master
+              git checkout -b "RELEASE-${NEXT_VERSION}"
+              git push origin "RELEASE-${NEXT_VERSION}" --set-upstream
               mvn deploy --settings ./.circleci/settings.xml
               git push -d origin "RELEASE-${NEXT_VERSION}"
 
@@ -45,7 +46,7 @@ workflows:
           filters:
             branches:
               only:
-                - /RELEASE-.*/
+                - /^(?!RELEASE).*$/
 
   deploy:
     jobs:
@@ -53,11 +54,11 @@ workflows:
           filters:
             branches:
               only:
-                - /^(?!RELEASE).*$/
+                - /^.*RELEASE.*$/  # Match branches that contain "RELEASE"
       - deploy-maven:
           requires:
             - package-maven
           filters:
             branches:
               only:
-                - /^(?!RELEASE).*$/
+                - /^.*RELEASE.*$/  # Match branches that contain "RELEASE"
