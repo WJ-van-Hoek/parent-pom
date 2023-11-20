@@ -44,7 +44,8 @@ workflows:
       - package-maven:
           filters:
             branches:
-              ignore: /.*/
+              only:
+                - /RELEASE-.*/
 
   deploy:
     jobs:
@@ -52,11 +53,11 @@ workflows:
           filters:
             branches:
               only:
-                - /RELEASE-.*/
+                - /^(?!RELEASE).*$/
       - deploy-maven:
           requires:
             - package-maven
           filters:
             branches:
               only:
-                - /RELEASE-.*/
+                - /^(?!RELEASE).*$/
