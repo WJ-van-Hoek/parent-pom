@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  build:
+  package-maven:
     docker:
       - image: maven:3.8.4-openjdk-17
 
@@ -11,10 +11,10 @@ jobs:
       - checkout
 
       - run:
-          name: Clean and Package
+          name: clean and package
           command: mvn clean package
 
-  deploy:
+  deploy-maven:
     docker:
       - image: maven:3.8.4-openjdk-17
 
@@ -24,56 +24,35 @@ jobs:
       - checkout
 
       - run:
-          name: Check if AUTO-COMMIT tag exists
-          command: |
-            if git tag --list "AUTO-COMMIT" >/dev/null 2>&1; then
-              echo "Tag AUTO-COMMIT already exists. Skipping deployment."
-              exit 0
-            else
-              echo "Proceeding with deployment."
-            fi
-
-      - run:
-          name: Increment Version and Deploy
+          name: deploy
           command: |
               git config --global user.email "${USER_EMAIL}"
               git config --global user.name "${USER_NAME}"
-              git tag -d AUTO-COMMIT
-              git push --delete origin AUTO-COMMIT
-              # If it's not a tagged build, increment the version number
               CURRENT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
               NEXT_VERSION=$(echo "${CURRENT_VERSION}" | awk -F'.' '{print $1"."$2"."$3 + 1}')
+              git checkout -b "RELEASE-${NEXT_VERSION}"
               mvn versions:set -DnewVersion="${NEXT_VERSION}"
               git commit -am "Bump version to ${NEXT_VERSION}"
-              git tag -a "AUTO-COMMIT" -m "Bump version to ${NEXT_VERSION}" HEAD
-              git push origin master --tags
-            
-              # Deploy to Maven repository
+              git push origin "RELEASE-${NEXT_VERSION}"
               mvn deploy --settings ./.circleci/settings.xml
-
-      - run:
-          name: Debug Tag
-          command: |
-            echo "Current Tags:"
-            git tag --list
-            echo "Filtered Tags:"
-            git tag --list | grep -v -E '^AUTO-COMMIT.*$'
+              git push -d origin "RELEASE-${NEXT_VERSION}"
 
 workflows:
   version: 2
-  build:
+  package:
     jobs:
-      - build:
+      - package-maven:
           filters:
-            tags:
-              ignore: /^AUTO-COMMIT.*$/
+            branches:
+              ignore: /.*/
 
-      - deploy:
+  deploy:
+    jobs:
+      - package-maven
+      - deploy-maven:
           requires:
-            - build
+            - package-maven
           filters:
             branches:
               only:
                 - master
-            tags:
-              ignore: /^AUTO-COMMIT.*$/
