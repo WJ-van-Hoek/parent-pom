@@ -1,0 +1,6 @@
+/.project
+/.settings/org.eclipse.core.resources.prefs
+/.settings/org.eclipse.m2e.core.prefs
+/target/checkstyle-cachefile
+/target/checkstyle-checker.xml
+/target/checkstyle-result.xml
