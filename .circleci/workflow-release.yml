@@ -1,0 +1,10 @@
+release:
+    jobs:
+      - package-maven:
+          filters:
+            branches:
+              only:
+                - master
+      - deploy-maven:
+          requires:
+            - package-maven
