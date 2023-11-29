@@ -8,6 +8,8 @@ jobs:
 
   $(cat .circleci/job-deploy-maven.yml)
 
+  $(cat .circleci/job-increment-version.yml)
+
 EOF
 
 cat <<EOF >> .circleci/generated_config.yml
