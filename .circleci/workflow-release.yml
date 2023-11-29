@@ -5,6 +5,9 @@ release:
             branches:
               only:
                 - master
-      - deploy-maven:
+      - increment-version:
           requires:
             - package-maven
+      - deploy-maven:
+          requires:
+            - increment-version
