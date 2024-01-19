@@ -11,8 +11,9 @@
 	<properties>
 		<java.version>17</java.version>
 		<jacoco.version>0.8.11</jacoco.version>
+		<jakarta.validation-api.version>3.0.2</jakarta.validation-api.version>
 		<junit.version>4.13.2</junit.version>
-		<log4j2.version>3.1.4</log4j2.version>
+		<slf4j-api.version>2.0.11</slf4j-api.version>
 		<lombok.version>1.18.30</lombok.version>
 		<mvn-checkstyle-plugin.version>3.1.1</mvn-checkstyle-plugin.version>
 		<mvn-compiler-plugin.version>3.11.0</mvn-compiler-plugin.version>
@@ -21,6 +22,7 @@
 		<mvn-site-plugin.version>3.12.1</mvn-site-plugin.version>
 		<mvn-source-plugin.version>3.3.0</mvn-source-plugin.version>
 		<site-mvn-plugin.version>0.12</site-mvn-plugin.version>
+		<slf4j-api.version>2.0.11</slf4j-api.version>
 		<surefire.version>3.2.2</surefire.version>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -41,11 +43,11 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-log4j2</artifactId>
-			<version>${log4j2.version}</version>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j-api.version}</version>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -58,13 +60,19 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+			<version>${jakarta.validation-api.version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
 		<pluginManagement>
 			<plugins>
 				<plugin>
-					<!--to run: mvn site:site site:stage -->
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-site-plugin</artifactId>
 					<version>${mvn-site-plugin.version}</version>
@@ -131,7 +139,7 @@
 								<goal>check</goal>
 							</goals>
 						</execution>
-					</executions>			
+					</executions>
 				</plugin>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
