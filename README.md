@@ -5,6 +5,7 @@ POM for all my personal repositories
 # Release Notes
 |Release version  |Date  |Size  | Category |Content |
 |--|--|--|--|--|
+|0.0.7  |2024-01-19  |minor|technical|add slf4j & jakarta-validation-api |
 |0.0.6  |2023-11-29  |minor|technical|add plugin management |
 |0.0.5  |2023-11-29  |minor|technical|separate increment version job in pipeline |
 |0.0.4  |2023-11-29  |minor|technical|refactor pipeline |
