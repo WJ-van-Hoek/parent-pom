@@ -6,7 +6,7 @@
     <server>
       <id>github-parent-pom-deploy-package</id>
 	  <username>WJ-van-Hoek</username>
-      <password>${parent_pom_deploy_package_token}</password>
+      <password>${_WRITE_PACKAGE}</password>
     </server>
   </servers>
 </settings>
