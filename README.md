@@ -5,7 +5,8 @@ POM for all my personal repositories
 # Release Notes
 |Release version  |Date  |Size  | Category |Content |
 |--|--|--|--|--|
-|0.1.0  |2024-02-24  |minor|legal|add LICENSE.md | 
+|0.1.0  |2024-02-24  |minor|technical|revise increment after x.x.9 and x.9.9 |
+|0.0.10 |2024-02-24  |minor|legal|add LICENSE.md | 
 |0.0.9  |2024-02-24  |minor|functional|amend CONTRIBUTING.md |
 |0.0.8  |2024-02-24  |minor|technical|update dependencies |
 |0.0.7  |2024-01-19  |minor|technical|add slf4j & jakarta-validation-api |
