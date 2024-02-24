@@ -4,3 +4,6 @@
 /target/checkstyle-cachefile
 /target/checkstyle-checker.xml
 /target/checkstyle-result.xml
+/.classpath
+/.factorypath
+/.settings/
