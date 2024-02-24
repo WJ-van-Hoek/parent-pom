@@ -12,9 +12,11 @@
 		<java.version>17</java.version>
 		<jacoco.version>0.8.11</jacoco.version>
 		<jakarta.validation-api.version>3.0.2</jakarta.validation-api.version>
-		<junit.version>4.13.2</junit.version>
+		<junit-jupiter-api.version>5.10.2</junit-jupiter-api.version>
 		<slf4j-api.version>2.0.11</slf4j-api.version>
+		<logback-classic.version>1.4.14</logback-classic.version>
 		<lombok.version>1.18.30</lombok.version>
+		<mockito-core.version>5.10.0</mockito-core.version>
 		<mvn-checkstyle-plugin.version>3.1.1</mvn-checkstyle-plugin.version>
 		<mvn-compiler-plugin.version>3.11.0</mvn-compiler-plugin.version>
 		<mvn-project-info-reports.version>3.4.5</mvn-project-info-reports.version>
@@ -47,7 +49,13 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>${slf4j-api.version}</version>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback-classic.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -55,17 +63,17 @@
 		</dependency>
 
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
-			<scope>test</scope>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>${junit-jupiter-api.version}</version>
 		</dependency>
 
 		<dependency>
-			<groupId>jakarta.validation</groupId>
-			<artifactId>jakarta.validation-api</artifactId>
-			<version>${jakarta.validation-api.version}</version>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>${mockito-core.version}</version>
 		</dependency>
+
 
 	</dependencies>
 
@@ -76,6 +84,11 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-site-plugin</artifactId>
 					<version>${mvn-site-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${surefire.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.jacoco</groupId>
