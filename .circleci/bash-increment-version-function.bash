@@ -12,8 +12,6 @@ increment_version() {
     local minor_version="$2"
     local minor_subversion="$3"
 
-    local version
-
     version=$(awk -v minor_subversion="${minor_subversion}" -v minor_version="${minor_version}" -v major_version="${major_version}" -F'.' '
         BEGIN {
             if (minor_version >= 9 && minor_subversion >= 9) {
@@ -28,8 +26,9 @@ increment_version() {
             print version
         }'
     )
-
+    
     echo "${version}"
+  
 }
 
 # Example usage
