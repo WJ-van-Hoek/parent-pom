@@ -1,5 +1,4 @@
 #!/bin/bash
-cd ..
 
 # Source the bash-increment-version-function.sh script
 source ./circleci/bash-increment-version-function.bash > /dev/null
