@@ -1,9 +1,7 @@
 #!/bin/bash
-ls -la
-pwd
 
 # Source the bash-increment-version-function.sh script
-source ./circleci/bash-increment-version-function.bash > /dev/null
+source ./.circleci/bash-increment-version-function.bash > /dev/null
 
 # Get the current version using Maven
 CURRENT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
