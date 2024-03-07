@@ -53,7 +53,8 @@ jobs:
 workflows:
   version: 2
   package:
-    when: \<< pipeline.parameters.update-dependencies == false \>>
+    when:
+      not: << pipeline.parameters.update-dependencies >>
     jobs:
       - package-maven:
           filters:
@@ -62,7 +63,8 @@ workflows:
                 - master
 
   release:
-    when: \<< pipeline.parameters.update-dependencies == false \>>
+    when:
+      not: << pipeline.parameters.update-dependencies >>
     jobs:
       - package-maven:
           filters:
@@ -77,6 +79,6 @@ workflows:
             - increment-version
   
   update-dependencies:
-    when: \<< pipeline.parameters.update-dependencies == true \>>
+    when: << pipeline.parameters.update-dependencies >>
     jobs:
       - update-dependencies
