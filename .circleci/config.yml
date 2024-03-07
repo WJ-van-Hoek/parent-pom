@@ -16,7 +16,28 @@ jobs:
           command: bash .circleci/bash-generate-pipeline-config.bash
       - continuation/continue:
           configuration_path: .circleci/generated_config.yml
+  update-dependencies:
+    docker:
+        - image: maven:3.8.4-openjdk-17
+    working_directory: /parent-pom
+    steps:
+        - checkout
+
+        - run:
+            name: update-dependencies
+            command: bash .circleci/bash-update-dependencies.bash
+    
 workflows:
   setup-workflow:
     jobs:
       - generate-config
+  update-dependencies:
+    triggers:
+      - schedule:
+          cron: "45 13 * * *"
+          filters: 
+            branches:
+              ignore:
+                - /.*/  # Ignore all branches
+    jobs:
+      - update-dependencies
