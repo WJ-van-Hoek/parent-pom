@@ -4,6 +4,10 @@ git checkout AUTO-UPDATE-DEPENDENCIES
 
 mvn versions:update-properties
 
+# Configure git user email and name
+git config --global user.email "${USER_EMAIL}"
+git config --global user.name "${USER_NAME}"
+
 git commit -am "Automated versions:update-properties"
 git push origin
 
