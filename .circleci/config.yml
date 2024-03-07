@@ -1,5 +1,10 @@
 version: 2.1
 
+parameters:
+  update-dependencies:
+    default: false
+    type: boolean
+
 jobs:
   package-maven:
     docker:
@@ -48,6 +53,7 @@ jobs:
 workflows:
   version: 2
   package:
+    when: << pipeline.parameters.update-dependencies == 'false' >>
     jobs:
       - package-maven:
           filters:
@@ -56,6 +62,7 @@ workflows:
                 - master
 
   release:
+    when: << pipeline.parameters.update-dependencies == 'false' >>
     jobs:
       - package-maven:
           filters:
@@ -70,12 +77,6 @@ workflows:
             - increment-version
   
   update-dependencies:
-    triggers:
-      - schedule:
-          cron: "47 13 * * *"
-          filters: 
-            branches:
-              ignore:
-                - /.*/  # Ignore all branches
+    when: << pipeline.parameters.update-dependencies == 'true' >>
     jobs:
       - update-dependencies
