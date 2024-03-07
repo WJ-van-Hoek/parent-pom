@@ -1,8 +1,13 @@
 #!/bin/bash
 
+source ./.circleci/bash-update-release-notes.bash  > /dev/null
+
 git checkout AUTO-UPDATE-DEPENDENCIES
+git pull origin master
 
 mvn versions:update-properties
+
+update_release_notes "minor" "technical" "update dependencies"
 
 # Configure git user email and name
 git config --global user.email "${USER_EMAIL}"

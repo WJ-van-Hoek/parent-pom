@@ -5,7 +5,7 @@ POM for all my personal repositories
 # Release Notes
 |Release version  |Date  |Size  | Category |Content |
 |--|--|--|--|--|
-|0.1.1  |2024-03-07  |minor|technical|auto update properties |
+|0.1.1  |2024-03-07  |minor|technical|add auto update dependencies feature |
 |0.1.0  |2024-03-06  |minor|technical|revise increment after x.x.9 and x.9.9 |
 |0.0.10 |2024-02-24  |minor|legal|add LICENSE.md | 
 |0.0.9  |2024-02-24  |minor|functional|amend CONTRIBUTING.md |
