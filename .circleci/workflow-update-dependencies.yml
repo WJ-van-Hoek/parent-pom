@@ -1,7 +1,10 @@
 update-dependencies:
-    when:
-      and:
-        - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
-        - equal: [ update-dependencies, << pipeline.schedule.name >> ]
+    triggers:
+      - schedule:
+          cron: "30 12 * * *"
+          filters:
+            branches:
+              only:
+                - master
     jobs:
       - update-dependencies
