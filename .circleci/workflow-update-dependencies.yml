@@ -1,0 +1,7 @@
+update-dependencies:
+    when:
+      and:
+        - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+        - equal: [ update-dependencies, << pipeline.schedule.name >> ]
+    jobs:
+      - update-dependencies

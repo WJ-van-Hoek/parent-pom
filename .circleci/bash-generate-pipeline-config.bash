@@ -9,6 +9,8 @@ jobs:
   $(cat .circleci/job-deploy-maven.yml)
 
   $(cat .circleci/job-increment-version.yml)
+  
+  $(cat .circleci/job-update-dependencies.yml)
 
 EOF
 
@@ -18,6 +20,8 @@ workflows:
   $(cat .circleci/workflow-package.yml)
 
   $(cat .circleci/workflow-release.yml)
+  
+  $(cat .circleci/workflow-update-dependencies.yml)
 
 EOF
 
