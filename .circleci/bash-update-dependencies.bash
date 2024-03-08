@@ -2,16 +2,17 @@
 
 source ./.circleci/bash-update-release-notes.bash  > /dev/null
 
+# Configure git user email and name
+git config --global user.email "${USER_EMAIL}"
+git config --global user.name "${USER_NAME}" 
+
+git push -d origin AUTO-UPDATE-DEPENDENCIES
 git checkout -b AUTO-UPDATE-DEPENDENCIES
 git pull origin master
 
 mvn versions:update-properties
 
 update_release_notes "minor" "technical" "update dependencies"
-
-# Configure git user email and name
-git config --global user.email "${USER_EMAIL}"
-git config --global user.name "${USER_NAME}"
 
 git commit -am "Automated versions:update-properties"
 git push origin AUTO-UPDATE-DEPENDENCIES --set-upstream
