@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./.circleci/bash-update-release-notes.bash  > /dev/null
+source ./.circleci/bash-update-release-notes.bash > /dev/null
 
 # Configure git user email and name
 git config --global user.email "${USER_EMAIL}"
@@ -10,12 +10,27 @@ git push -d origin AUTO-UPDATE-DEPENDENCIES
 git checkout -b AUTO-UPDATE-DEPENDENCIES
 git pull origin master
 
+# Save a copy of the pom.xml file before running the command
+cp pom.xml pom.xml.before_update
+
+# Run 'mvn versions:update-properties'
 mvn versions:update-properties
 
-update_release_notes "minor" "technical" "update dependencies"
+# Compare the pom.xml files before and after the update
+if ! cmp -s pom.xml pom.xml.before_update; then
+    # If files are different, update release notes and continue
+    update_release_notes "minor" "technical" "update dependencies"
 
-git commit -am "Automated versions:update-properties"
-git push origin AUTO-UPDATE-DEPENDENCIES --set-upstream
+    git commit -am "Automated versions:update-properties"
+    git push origin AUTO-UPDATE-DEPENDENCIES --set-upstream
 
-curl -L -X POST -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${_WRITE_PR}" -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/repos/WJ-van-Hoek/parent-pom/pulls -d '{"title":"AUTO-PR: update properties","head":"AUTO-UPDATE-DEPENDENCIES","base":"master"}'
+    curl -L -X POST -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${_WRITE_PR}" -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/repos/WJ-van-Hoek/parent-pom/pulls -d '{"title":"AUTO-PR: update properties","head":"AUTO-UPDATE-DEPENDENCIES","base":"master"}'
+else
+    # If files are the same, indicate no changes and exit
+    echo "No changes found in 'pom.xml' after running 'mvn versions:update-properties'. Exiting..."
+    exit 1
+fi
+
+# Clean up: Remove the temporary pom.xml file
+rm pom.xml.before_update
 
