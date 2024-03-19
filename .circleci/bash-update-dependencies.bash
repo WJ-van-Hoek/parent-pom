@@ -10,19 +10,18 @@ git push -d origin AUTO-UPDATE-DEPENDENCIES
 git checkout -b AUTO-UPDATE-DEPENDENCIES
 git pull origin master
 
-# Save a copy of the pom.xml file before running the command
-cp pom.xml pom.xml.before_update
-
 # Run 'mvn versions:update-properties'
 mvn versions:update-properties
 
 # Compare the pom.xml files before and after the update
-if ! cmp -s pom.xml pom.xml.before_update; then
+if [[ -n $(git status --porcelain) ]]; then
     # If files are different, update release notes and continue
     update_release_notes "minor" "technical" "update dependencies"
 
-    git commit -am "Automated versions:update-properties"
+    git add -u
+    git commit -m "Automated versions:update-properties"
     git push origin AUTO-UPDATE-DEPENDENCIES --set-upstream
+    sleep 5
 
     curl -L -X POST -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${_WRITE_PR}" -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/repos/WJ-van-Hoek/parent-pom/pulls -d '{"title":"AUTO-PR: update properties","head":"AUTO-UPDATE-DEPENDENCIES","base":"master"}'
 else
