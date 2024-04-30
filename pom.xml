@@ -14,7 +14,7 @@
 		<jakarta.validation-api.version>3.0.2</jakarta.validation-api.version>
 		<junit-jupiter-api.version>5.10.2</junit-jupiter-api.version>
 		<slf4j-api.version>2.0.11</slf4j-api.version>
-		<logback-classic.version>1.5.3</logback-classic.version>
+		<logback-classic.version>1.5.6</logback-classic.version>
 		<lombok.version>1.18.32</lombok.version>
 		<mockito-core.version>5.11.0</mockito-core.version>
 		<mvn-checkstyle-plugin.version>3.3.1</mvn-checkstyle-plugin.version>
@@ -24,7 +24,7 @@
 		<mvn-site-plugin.version>3.12.1</mvn-site-plugin.version>
 		<mvn-source-plugin.version>3.3.1</mvn-source-plugin.version>
 		<site-mvn-plugin.version>0.12</site-mvn-plugin.version>
-		<slf4j-api.version>2.0.12</slf4j-api.version>
+		<slf4j-api.version>2.0.13</slf4j-api.version>
 		<surefire.version>3.2.5</surefire.version>
 		<versions-mvn-plugin.version>2.16.2</versions-mvn-plugin.version>		
 
