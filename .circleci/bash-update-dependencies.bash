@@ -24,10 +24,13 @@ if [[ -n $(git status --porcelain) ]]; then
     sleep 5
 
     curl -L -X POST -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${_WRITE_PR}" -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/repos/WJ-van-Hoek/parent-pom/pulls -d '{"title":"AUTO-PR: update properties","head":"AUTO-UPDATE-DEPENDENCIES","base":"master"}'
+    # If files are the same, indicate no changes and exit
+    echo "Changes found in 'pom.xml' after running 'mvn versions:update-properties'. PR is waiting!"
+    exit 1
 else
     # If files are the same, indicate no changes and exit
     echo "No changes found in 'pom.xml' after running 'mvn versions:update-properties'. Exiting..."
-    exit 1
+    exit 0
 fi
 
 # Clean up: Remove the temporary pom.xml file
