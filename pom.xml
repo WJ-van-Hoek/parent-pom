@@ -25,7 +25,7 @@
 		<mvn-source-plugin.version>3.3.1</mvn-source-plugin.version>
 		<site-mvn-plugin.version>0.12</site-mvn-plugin.version>
 		<slf4j-api.version>2.0.13</slf4j-api.version>
-		<surefire.version>3.2.5</surefire.version>
+		<surefire.version>3.3.0</surefire.version>
 		<versions-mvn-plugin.version>2.16.2</versions-mvn-plugin.version>		
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
