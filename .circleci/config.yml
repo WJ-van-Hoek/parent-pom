@@ -61,6 +61,8 @@ workflows:
             branches:
               ignore:
                 - master
+          context:
+              - build-context
 
   release:
     when:
@@ -71,16 +73,21 @@ workflows:
             branches:
               only:
                 - master
+          context:
+              - build-context                
       - increment-version:
           requires:
             - package-maven
       - deploy-maven:
           requires:
             - increment-version
+          context:
+              - deploy-context
   
   update-dependencies:
     when: << pipeline.parameters.update-dependencies >>
     jobs:
       - update-dependencies:
           context:
-              - update-dependencies
+              - update-dependencies-context
+
