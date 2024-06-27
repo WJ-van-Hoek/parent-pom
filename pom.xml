@@ -19,7 +19,7 @@
 		<mockito-core.version>5.12.0</mockito-core.version>
 		<mvn-checkstyle-plugin.version>3.4.0</mvn-checkstyle-plugin.version>
 		<mvn-compiler-plugin.version>3.13.0</mvn-compiler-plugin.version>
-		<mvn-project-info-reports.version>3.6.0</mvn-project-info-reports.version>
+		<mvn-project-info-reports.version>3.6.1</mvn-project-info-reports.version>
 		<mvn-resources-plugin.version>3.3.1</mvn-resources-plugin.version>
 		<mvn-site-plugin.version>3.12.1</mvn-site-plugin.version>
 		<mvn-source-plugin.version>3.3.1</mvn-source-plugin.version>
