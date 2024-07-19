@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Source the bash-increment-version-function.sh script
+source ./.circleci/bash-increment-version-function.bash > /dev/null
+
 update_release_notes() {
     local size="$1"
     local category="$2"
