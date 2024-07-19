@@ -21,7 +21,25 @@ increment_version() {
             } else if (minor_subversion >= 9) {
                 version = major_version "." minor_version + 1 ".0"
             } else {
-                version = major_version "." minor_version "." minor_subversion + 1
+                version = increment_minor_sub_version major_version minor_version minor_subversion
+            }
+            print version
+        }'
+    )
+    
+    echo "${version}"
+  
+}
+
+# Function to increment the version
+increment_minor_sub_version() {
+    local major_version="$1"
+    local minor_version="$2"
+    local minor_subversion="$3"
+
+    version=$(awk -v minor_subversion="${minor_subversion}" -v minor_version="${minor_version}" -v major_version="${major_version}" -F'.' '
+        BEGIN {
+            version = major_version "." minor_version "." minor_subversion + 1
             }
             print version
         }'

@@ -6,9 +6,14 @@ update_release_notes() {
     local content="$3"
     
     CURRENT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+    # Split the current version into major, minor, and subversion parts
+    split_version "${CURRENT_VERSION}"
+
+    # Increment the version using the split parts
+    NEXT_VERSION=$(increment_minor_subversion "${major}" "${minor}" "${subversion}")
 
     # Define the new line to add
-    new_line="|${CURRENT_VERSION}  |$(date +"%Y-%m-%d")  |${size}|${category}|${content} |"
+    new_line="|${NEXT_VERSION}  |$(date +"%Y-%m-%d")  |${size}|${category}|${content} |"
 
     # Define the file to update
     file="README.md"
