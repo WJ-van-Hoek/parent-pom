@@ -36,11 +36,11 @@ increment_minor_sub_version() {
     local major_version="$1"
     local minor_version="$2"
     local minor_subversion="$3"
+  
 
     version=$(awk -v minor_subversion="${minor_subversion}" -v minor_version="${minor_version}" -v major_version="${major_version}" -F'.' '
         BEGIN {
             version = major_version "." minor_version "." minor_subversion + 1
-            }
             print version
         }'
     )
@@ -51,6 +51,6 @@ increment_minor_sub_version() {
 
 # Example usage
 split_version "${1}"
-increment_version "${major}" "${minor}" "${subversion}"
+increment_minor_sub_version $1 $2 $3
 
 

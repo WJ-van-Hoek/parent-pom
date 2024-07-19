@@ -31,3 +31,5 @@ update_release_notes() {
     sed -i "${new_line_number}i $new_line" $file
 }
 
+update_release_notes "major" "test category" "test content"
+
