@@ -50,7 +50,7 @@ increment_minor_sub_version() {
 }
 
 # Example usage
-split_version "${1}"
-increment_minor_sub_version $1 $2 $3
+#split_version "${1}"
+#increment_minor_sub_version $1 $2 $3
 
 
