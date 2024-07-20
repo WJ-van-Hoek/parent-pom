@@ -16,6 +16,7 @@
 		<slf4j-api.version>2.0.11</slf4j-api.version>
 		<logback-classic.version>1.5.6</logback-classic.version>
 		<lombok.version>1.18.34</lombok.version>
+		<lombok-maven-plugin.version>1.18.20.0</lombok-maven-plugin.version>
 		<mockito-core.version>5.12.0</mockito-core.version>
 		<mvn-checkstyle-plugin.version>3.4.0</mvn-checkstyle-plugin.version>
 		<mvn-compiler-plugin.version>3.13.0</mvn-compiler-plugin.version>
@@ -26,7 +27,7 @@
 		<site-mvn-plugin.version>0.12</site-mvn-plugin.version>
 		<slf4j-api.version>2.0.13</slf4j-api.version>
 		<surefire.version>3.3.1</surefire.version>
-		<versions-mvn-plugin.version>2.17.1</versions-mvn-plugin.version>		
+		<versions-mvn-plugin.version>2.17.1</versions-mvn-plugin.version>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -44,37 +45,39 @@
 		</site>
 	</distributionManagement>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j-api.version}</version>
-		</dependency>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j-api.version}</version>
+			</dependency>
 
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>${logback-classic.version}</version>
-		</dependency>
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>${logback-classic.version}</version>
+			</dependency>
 
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>${lombok.version}</version>
-		</dependency>
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>${lombok.version}</version>
+			</dependency>
 
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-api</artifactId>
-			<version>${junit-jupiter-api.version}</version>
-		</dependency>
+			<dependency>
+				<groupId>org.junit.jupiter</groupId>
+				<artifactId>junit-jupiter-api</artifactId>
+				<version>${junit-jupiter-api.version}</version>
+			</dependency>
 
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<version>${mockito-core.version}</version>
-		</dependency>
-	</dependencies>
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-core</artifactId>
+				<version>${mockito-core.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<pluginManagement>
@@ -157,34 +160,29 @@
 								</ignoreVersion>
 							</ignoreVersions>
 						</ruleSet>
-					</configuration>					
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.projectlombok</groupId>
+					<artifactId>lombok-maven-plugin</artifactId>
+					<version>${lombok-maven-plugin.version}</version>
+					<executions>
+						<execution>
+							<phase>generate-sources</phase>
+							<goals>
+								<goal>delombok</goal>
+							</goals>
+							<configuration>
+								<addOutputDirectory>false</addOutputDirectory>
+								<sourceDirectory>src/main/java</sourceDirectory>
+								<outputDirectory>
+									${project.build.directory}/delombok
+								</outputDirectory>
+							</configuration>
+						</execution>
+					</executions>
 				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
-
-	<reporting>
-		<plugins>
-			<plugin>
-				<!-- to run: mvn checkstyle:checkstyle -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>${mvn-checkstyle-plugin.version}</version>
-				<reportSets>
-					<reportSet>
-						<reports>
-							<report>checkstyle</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-project-info-reports-plugin</artifactId>
-				<version>${mvn-project-info-reports.version}</version>
-			</plugin>
-		</plugins>
-	</reporting>
-
 </project>
