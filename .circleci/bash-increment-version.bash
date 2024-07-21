@@ -10,7 +10,7 @@ CURRENT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdou
 split_version "${CURRENT_VERSION}"
 
 # Increment the version using the split parts
-NEXT_VERSION=$(increment_minor_subversion "${major}" "${minor}" "${subversion}")
+NEXT_VERSION=$(increment_minor_sub_version "${major}" "${minor}" "${subversion}")
 echo "${NEXT_VERSION}"
 
 # Set the new version using Maven
