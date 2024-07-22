@@ -5,6 +5,7 @@ POM for all my personal repositories
 # Release Notes
 |Release version  |Date  |Size  | Category |Content |
 |--|--|--|--|--|
+|  |2024-07-22  |minor|technical|update dependencies |
 |0.2.10 |2024-07-21  |minor|technical|remove plugins |
 |0.2.9  |2024-07-19  |minor|technical|update dependencies |
 |0.2.8  |2024-07-13  |minor|technical|update dependencies |
