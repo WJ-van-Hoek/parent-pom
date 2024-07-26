@@ -11,7 +11,7 @@
     <server>
       <id>github-parent-pom-deploy-package</id>
       <username>WJ-van-Hoek</username>
-      <password>${_WRITE_PACKAGE}</password>
+      <password>${_ALL}</password>
     </server>
   </servers>
 </settings>
