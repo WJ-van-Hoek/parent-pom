@@ -11,7 +11,7 @@ git checkout -b AUTO-UPDATE-DEPENDENCIES
 git pull origin master
 
 # Run 'mvn versions:update-properties'
-mvn versions:update-properties
+mvn -s .circleci/settings.xml versions:update-properties
 
 # Compare the pom.xml files before and after the update
 if [[ -n $(git status --porcelain) ]]; then
