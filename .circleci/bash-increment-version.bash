@@ -4,7 +4,7 @@
 source ./.circleci/bash-increment-version-function.bash > /dev/null
 
 # Get the current version using Maven
-CURRENT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+CURRENT_VERSION=$(mvn -s .circleci/settings.xml help:evaluate -Dexpression=project.version -q -DforceStdout)
 
 # Split the current version into major, minor, and subversion parts
 split_version "${CURRENT_VERSION}"
