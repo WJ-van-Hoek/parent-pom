@@ -78,6 +78,8 @@ workflows:
       - increment-version:
           requires:
             - package-maven
+          context:
+              - deploy-context
       - deploy-maven:
           requires:
             - increment-version
