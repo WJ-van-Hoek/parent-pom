@@ -1,6 +1,9 @@
 version: 2.1
 
 parameters:
+  update-parent:
+    default: false
+    type: boolean  
   update-dependencies:
     default: false
     type: boolean
@@ -68,7 +71,7 @@ workflows:
       not:
         or:
           - << pipeline.parameters.update-parent >>
-          - << pipeline.parameters.update-properties >> 
+          - << pipeline.parameters.update-dependencies >> 
     jobs:
       - package-maven:
           filters:
@@ -83,7 +86,7 @@ workflows:
       not:
         or:
           - << pipeline.parameters.update-parent >>
-          - << pipeline.parameters.update-properties >> 
+          - << pipeline.parameters.update-dependencies >> 
     jobs:
       - package-maven:
           filters:
@@ -116,4 +119,3 @@ workflows:
       - update-dependencies:
           context:
               - update-dependencies-context
-
