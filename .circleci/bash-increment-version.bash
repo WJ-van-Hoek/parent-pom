@@ -14,7 +14,7 @@ NEXT_VERSION=$(increment_minor_sub_version "${major}" "${minor}" "${subversion}"
 echo "${NEXT_VERSION}"
 
 # Set the new version using Maven
-mvn versions:set -DnewVersion="${NEXT_VERSION}"
+mvn  -s .circleci/settings.xml versions:set -DnewVersion="${NEXT_VERSION}"
 
 # Configure git user email and name
 git config --global user.email "${USER_EMAIL}"
