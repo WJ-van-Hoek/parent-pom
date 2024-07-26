@@ -13,7 +13,7 @@ update_release_notes() {
     split_version "${CURRENT_VERSION}"
 
     # Increment the version using the split parts
-    NEXT_VERSION=$(increment_minor_subversion "${major}" "${minor}" "${subversion}")
+    NEXT_VERSION=$(increment_minor_sub_version "${major}" "${minor}" "${subversion}")
 
     # Define the new line to add
     new_line="|${NEXT_VERSION}  |$(date +"%Y-%m-%d")  |${size}|${category}|${content} |"
