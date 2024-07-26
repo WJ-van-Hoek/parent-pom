@@ -4,7 +4,7 @@
 source ./.circleci/bash-increment-version-function.bash > /dev/null
 
 # Get the current version using Maven
-CURRENT_VERSION=$(mvn -s .circleci/settings.xml help:evaluate -Dexpression=project.version -q -DforceStdout)
+CURRENT_VERSION=$(mvn -s settings.xml help:evaluate -Dexpression=project.version -q -DforceStdout)
 
 # Split the current version into major, minor, and subversion parts
 split_version "${CURRENT_VERSION}"
@@ -14,7 +14,7 @@ NEXT_VERSION=$(increment_minor_sub_version "${major}" "${minor}" "${subversion}"
 echo "${NEXT_VERSION}"
 
 # Set the new version using Maven
-mvn  -s .circleci/settings.xml versions:set -DnewVersion="${NEXT_VERSION}"
+mvn -s settings.xml versions:set -DnewVersion="${NEXT_VERSION}"
 
 # Configure git user email and name
 git config --global user.email "${USER_EMAIL}"
