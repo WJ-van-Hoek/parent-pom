@@ -38,6 +38,17 @@ jobs:
         - run:
             name: increment
             command: bash .circleci/bash-increment-version.bash
+            
+  update-parent:
+    docker:
+        - image: maven:3.8.4-openjdk-17
+    working_directory: /parent-pom
+    steps:
+        - checkout
+
+        - run:
+            name: update-parent
+            command: bash .circleci/bash-update-parent.bash            
   
   update-dependencies:
     docker:
@@ -54,7 +65,10 @@ workflows:
   version: 2
   package:
     when:
-      not: << pipeline.parameters.update-dependencies >>
+      not:
+        or:
+          - << pipeline.parameters.update-parent >>
+          - << pipeline.parameters.update-properties >> 
     jobs:
       - package-maven:
           filters:
@@ -66,7 +80,10 @@ workflows:
 
   release:
     when:
-      not: << pipeline.parameters.update-dependencies >>
+      not:
+        or:
+          - << pipeline.parameters.update-parent >>
+          - << pipeline.parameters.update-properties >> 
     jobs:
       - package-maven:
           filters:
@@ -86,6 +103,13 @@ workflows:
           context:
               - deploy-context
   
+  update-parent:
+    when: << pipeline.parameters.update-parent >>
+    jobs:
+      - update-parent:
+          context:
+              - update-dependencies-context  
+
   update-dependencies:
     when: << pipeline.parameters.update-dependencies >>
     jobs:
