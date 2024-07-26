@@ -2,7 +2,12 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.general</groupId>
+	<parent>
+		<groupId>com.general</groupId>
+		<artifactId>plugin-parent-pom</artifactId>
+		<version>0.0.3</version>
+	</parent>
+
 	<artifactId>parent-pom</artifactId>
 	<version>0.2.10</version>
 
@@ -19,6 +24,13 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
+
+	<repositories>
+		<repository>
+			<id>github-plugin-parent-pom</id>
+			<url>https://maven.pkg.github.com/WJ-van-Hoek/plugin-parent-pom</url>
+		</repository>
+	</repositories>
 
 	<distributionManagement>
 		<repository>
@@ -65,4 +77,5 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
 </project>

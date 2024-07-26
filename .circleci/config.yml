@@ -15,7 +15,7 @@ jobs:
 
         - run:
             name: clean and package
-            command: mvn clean package
+            command: mvn -s .circleci/settings.xml clean package
 
   deploy-maven:
     docker:

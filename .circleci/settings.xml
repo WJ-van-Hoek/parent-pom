@@ -4,9 +4,14 @@
                       http://maven.apache.org/xsd/settings-1.0.0.xsd">
   <servers>
     <server>
+      <id>github-plugin-parent-pom</id>
+      <username>WJ-van-Hoek</username>
+      <password>${_ALL}</password>
+    </server>	  
+    <server>
       <id>github-parent-pom-deploy-package</id>
-	  <username>WJ-van-Hoek</username>
-      <password>${_WRITE_PACKAGE}</password>
+      <username>WJ-van-Hoek</username>
+      <password>${_ALL}</password>
     </server>
   </servers>
 </settings>
