@@ -14,6 +14,7 @@
 	<packaging>pom</packaging>
 
 	<properties>
+		<jfreechart.version>1.5.5</jfreechart.version>
 		<junit-jupiter-api.version>5.10.3</junit-jupiter-api.version>
 		<logback-classic.version>1.5.6</logback-classic.version>
 		<lombok.version>1.18.34</lombok.version>
@@ -74,6 +75,12 @@
 				<groupId>org.mockito</groupId>
 				<artifactId>mockito-core</artifactId>
 				<version>${mockito-core.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.jfree</groupId>
+				<artifactId>jfreechart</artifactId>
+				<version>${jfreechart.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
