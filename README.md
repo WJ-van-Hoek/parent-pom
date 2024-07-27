@@ -5,7 +5,8 @@ POM for all my personal repositories
 # Release Notes
 |Release version  |Date  |Size  | Category |Content |
 |--|--|--|--|--|
-|0.2.13  |2024-07-26  |minor|technical|update parent |
+|0.3.0  |2024-07-27  |minor|functional|add freechart |
+|0.2.13  |2024-07-26 |minor|technical|update parent |
 |0.2.12 |2024-07-26  |minor|technical|update parent |
 |0.2.11 |2024-07-26  |minor|technical|use plugin-parent-pom as parent |
 |0.2.10 |2024-07-21  |minor|technical|remove plugins |
