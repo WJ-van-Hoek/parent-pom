@@ -5,7 +5,7 @@ POM for all my personal repositories
 # Release Notes
 |Release version  |Date  |Size  | Category |Content |
 |--|--|--|--|--|
-|0.4.2  |2025-03-28  |minor|technical|add mockito-junit-jupiter |
+|0.4.4  |2025-03-28  |minor|technical|add mockito-junit-jupiter |
 |0.3.40  |2025-03-28  |minor|technical|update parent |
 |0.3.39  |2025-03-23  |minor|technical|update dependencies |
 |0.3.38  |2025-03-16  |minor|technical|update dependencies |
