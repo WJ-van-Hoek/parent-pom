@@ -69,6 +69,12 @@
 		        <artifactId>mockito-junit-jupiter</artifactId>
 		        <version>${mockito-junit-jupiter.version}</version>
 		    </dependency>
+		    
+		    <dependency>
+				<groupId>org.junit.jupiter</groupId>
+				<artifactId>junit-jupiter-api</artifactId>
+				<version>${junit-jupiter-api.version}</version>
+			</dependency>
 
 			<dependency>
 				<groupId>org.mockito</groupId>
